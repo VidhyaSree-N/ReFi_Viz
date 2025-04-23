@@ -1,0 +1,117 @@
+<div class="min-h-screen bg-gradient-to-br from-indigo-50 via-sky-50 to-teal-50 px-4 py-10 relative overflow-hidden">
+
+  <!-- 🌸 Subtle Background Blobs (Optional) -->
+  <div class="absolute -top-12 -left-10 w-80 h-80 bg-indigo-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-pulse"></div>
+  <div class="absolute top-24 -right-12 w-80 h-80 bg-sky-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-pulse animation-delay-2000"></div>
+  <div class="absolute -bottom-10 left-1/3 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-pulse animation-delay-4000"></div>    
+    
+    <div class="w-full mx-7 px-6 py-6">
+      <% original = @refinance.original_payment %>
+      <% updated = @refinance.new_payment %>
+      <% savings = @refinance.savings_per_month %>
+
+    <div class="max-w-4xl mx-auto mb-12 px-4">
+      <h1 class="text-5xl font-semibold text-center text-gray-600 mb-8">
+        Refinance Overview
+      </h1>
+
+      <div class="flex flex-col sm:flex-row justify-center gap-12">
+        <!-- Left Column -->
+        <div class="space-y-3 text-gray-700 text-base">
+          <div>
+            <p class="text-sm text-gray-500">Original APR</p>
+            <p class="text-lg font-semibold"><%= @refinance.apr %>%</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Current Monthly Payment</p>
+            <p class="text-lg font-semibold">$<%= @refinance.original_payment %></p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Estimated Monthly Savings</p>
+            <p class="text-lg font-semibold text-green-600">$<%= @refinance.savings_per_month %></p>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="space-y-3 text-gray-700 text-base">
+          <div>
+            <p class="text-sm text-gray-500">New APR</p>
+            <p class="text-lg font-semibold"><%= @refinance.new_apr %>%</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">New Monthly Payment</p>
+            <p class="text-lg font-semibold">$<%= @refinance.new_payment %></p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-500">Total Savings Over Term</p>
+            <p class="text-lg font-bold text-green-700">$<%= @refinance.total_savings %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <!-- 📊 Charts Layout -->
+      <div
+        data-controller="chart"
+        data-chart-original-payment-value="<%= @refinance.original_payment %>"
+        data-chart-new-payment-value="<%= @refinance.new_payment %>"
+        data-chart-original-total-value="<%= @refinance.total_cost_original %>"
+        data-chart-new-total-value="<%= @refinance.total_cost_new %>"
+        data-chart-total-savings-value="<%= @refinance.total_savings %>"
+        data-chart-term-value="<%= @refinance.term %>"
+        class="bg-white shadow-lg p-6 rounded-lg"
+      >
+      
+        <h2 class="text-xl font-bold mb-4">💸 Total Loan Cost Comparison</h2>
+
+        <div class="relative flex w-full" >
+          <!-- Big Yearly Bar Chart -->
+          <div class="w-3/4">
+            <canvas data-chart-target="yearlyCanvas" class="w-full h-full"></canvas>
+            <div class="text-right mt-4">
+      <button
+        data-action="click->chart#animateAndMergeYearlyChart"
+        class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-1 px-4 rounded shadow transition duration-200"
+      >
+        Animate & Merge Bars
+      </button>
+    </div>
+
+          </div>
+
+          <!-- Right: Mini Charts stacked -->
+          <div class="w-1/4 flex flex-col justify-between pl-4">
+            <!-- Mini Bar -->
+            <!-- ✅ New Savings Thermometer to replace Monthly Payment chart -->
+            <div class="bg-white border shadow p-4 rounded h-[320px]"
+                data-controller="thermometer-chart"
+                data-thermometer-chart-term-value="<%= @refinance.term %>"
+                data-thermometer-chart-monthly-savings-value="<%= @refinance.savings_per_month %>">
+            
+              <h3 class="text-sm font-semibold text-center mb-4">🌡️ Cumulative Savings</h3>
+            
+              <canvas data-thermometer-chart-target="canvas" class="w-full h-[130px]"></canvas>
+            
+        
+            </div>
+            
+            
+
+            <!-- Mini Line -->
+            <div class="bg-white border shadow p-4 rounded h-[320px] mt-2">
+              <h3 class="text-sm font-semibold text-center mb-8">📈 Savings Over Time</h3>
+              <canvas data-chart-target="savingsCanvas" class="w-full h-full"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🔘 Buttons -->
+      <div class="mt-10 text-center">
+        <%= link_to "🔁 Try Another Estimate", new_refinance_path, class: "inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded shadow-lg mb-4" %>
+        <br>
+        <%= link_to "🚀 Start Pre-Approval", "https://new.apply.caribou.com/personal-info?_gl=1*ev6haf*_gcl_au*Njc3Njc3OTc2LjE3NDUyNDM0MTU", class: "inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded shadow-lg" %>
+      </div>
+    </div>
+</div>

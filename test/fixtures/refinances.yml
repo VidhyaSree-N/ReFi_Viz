@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  apr: 1.5
+  new_apr: 1.5
+  original_payment: 1.5
+  new_payment: 1.5
+  savings_per_month: 1.5
+  total_savings: 1.5
+  term: 1
+
+two:
+  apr: 1.5
+  new_apr: 1.5
+  original_payment: 1.5
+  new_payment: 1.5
+  savings_per_month: 1.5
+  total_savings: 1.5
+  term: 1

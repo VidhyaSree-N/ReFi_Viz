@@ -1,0 +1,64 @@
+<%= form_with(model: refinance, class: "space-y-5") do |form| %>
+  
+  <% if refinance.errors.any? %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+      <strong class="font-bold">Please fix the following errors:</strong>
+      <ul class="mt-2 list-disc list-inside text-sm">
+        <% refinance.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :amount, "Loan Amount ($)", class: "block text-gray-700 font-semibold mb-1" %>
+    <%= form.number_field :amount, required: true, class: "w-full border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:ring-2 focus:ring-blue-500" %>
+  </div>
+
+  <div>
+    <%= form.label :term, "Loan Term (Months)", class: "block text-gray-700 font-semibold mb-1" %>
+    <%= form.number_field :term, required: true, class: "w-full border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:ring-2 focus:ring-blue-500" %>
+  </div>
+
+  <div>
+    <%= form.label :apr, "Current APR (%)", class: "block text-gray-700 font-semibold mb-1" %>
+    <%= form.number_field :apr, step: 0.01, required: true, class: "w-full border border-gray-300 rounded-md shadow-sm px-4 py-2 focus:ring-2 focus:ring-blue-500" %>
+  </div>
+
+  <div data-controller="apr">
+    <%= form.label :new_apr, "New APR (%)", class: "block font-medium text-gray-700" %>
+    <%= form.number_field :new_apr, step: 0.01, required: true, class: "mt-1 block w-full rounded border-gray-300 shadow-sm", data: { apr_target: "input" } %>
+
+    <div class="mt-2">
+      <label class="inline-flex items-center">
+        <input type="checkbox"
+               data-action="apr#toggle"
+               data-apr-target="checkbox"
+               class="form-checkbox h-4 w-4 text-blue-600">
+        <span class="ml-2 text-sm text-gray-600">I don’t know my new APR</span>
+      </label>
+    </div>
+
+    <div class="mt-4 space-y-2 hidden" data-apr-target="sliderContainer">
+      <label for="credit_score_slider" class="block text-sm text-gray-700">
+        Estimate based on your credit score:
+      </label>
+      <input type="range"
+             id="credit_score_slider"
+             min="580" max="800" step="10"
+             value="700"
+             class="w-full"
+             data-action="input->apr#update"
+             data-apr-target="slider">
+      <p class="text-sm text-gray-600">
+        Credit Score: <span data-apr-target="score">700</span> →
+        Estimated APR: <span data-apr-target="estimate">6.0%</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="text-center pt-4">
+    <%= form.submit "🚀 Visualize Savings", class: "w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-md transition-all duration-200 shadow" %>
+  </div>
+<% end %>

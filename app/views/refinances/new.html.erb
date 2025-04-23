@@ -1,0 +1,17 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-sky-100 to-teal-100 px-4 py-10 relative overflow-hidden">
+
+  <!-- 🌸 Subtle, professional blobs -->
+  <div class="absolute -top-12 -left-10 w-80 h-80 bg-indigo-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-pulse"></div>
+  <div class="absolute top-24 -right-12 w-80 h-80 bg-sky-200 rounded-full mix-blend-multiply filter blur-2xl opacity-40 animate-pulse animation-delay-2000"></div>
+  <div class="absolute -bottom-10 left-1/3 w-80 h-80 bg-teal-200 rounded-full mix-blend-multiply filter blur-2xl opacity-30 animate-pulse animation-delay-4000"></div>
+
+  <!-- 📋 Form Card -->
+  <div class="bg-white rounded-3xl shadow-xl p-10 max-w-xl w-full space-y-6 z-10 border border-gray-100">
+    <div class="text-center">
+      <h1 class="text-3xl font-extrabold text-gray-800 mb-2">🏡 Plan Your Refinance</h1>
+      <p class="text-gray-500 text-sm">Compare your current and new loan options with ease</p>
+    </div>
+
+    <%= render "form", refinance: @refinance %>
+  </div>
+</div>
