@@ -90,7 +90,7 @@ This app was built as a customized showcase for the **Full Stack Software Engine
 ## 👩‍💻 Author
 
 **Vidhya Sree**  
-[GitHub](https://github.com/VidhyaSree-N) • [LinkedIn](https://linkedin.com/in/vidhyasree)
+[GitHub](https://github.com/VidhyaSree-N) • [LinkedIn](https://www.linkedin.com/in/vidhya-sree-n/)
 
 ---
 
